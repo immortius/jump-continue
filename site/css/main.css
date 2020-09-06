@@ -1,0 +1,389 @@
+/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
+
+html {
+    color: #222;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.browserupgrade {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+   
+body {
+	padding: 0;
+	margin: 0;
+}
+
+.top h1 {
+	text-align: center;
+	margin-top: 0em;
+	margin-bottom: 0em;
+	-webkit-margin-before: 0em;
+	-margin-before: 0em;
+	background-color: #444;
+	border-color: #444;
+	color: #fff;
+}
+
+summary {
+	font-size: 28px;
+}
+
+.nav ul {
+  display: block;
+  list-style: none;
+  background-color: #444;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.nav li {
+  font-family: 'Oswald', sans-serif;
+  width: 120px;
+  font-size: 1em;
+  line-height: 18px;
+  height: 18px;
+  border-bottom: none;
+  display: inline-block;
+  margin-right: -4px;
+}
+ 
+.nav a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  transition: .1s background-color;
+}
+ 
+.nav a:hover {
+  background-color: #077;
+}
+ 
+.nav a.active {
+  background: #900;
+  color: #fff;
+  cursor: default;
+}
+
+.contents {
+	width: 60%;
+}
+
+.details {
+	width: 40%;
+}
+
+.top {
+    position: relative;
+    z-index: 10;
+	margin: 0;
+}
+
+.main {
+	display: flex;
+    overflow: hidden;
+    height: calc(100vh - 200px);
+    position: relative;
+    width: 100%;
+    backface-visibility: hidden;
+    will-change: overflow;
+}
+
+.column {
+    overflow: auto;
+    height: auto;
+    padding: .5rem;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+}
+
+.bar {
+	margin: 0.3em;
+}
+
+.content {
+	height: calc(100vh - 67px);
+  position: relative;
+  overflow: auto;
+}
+
+.section-header { 
+  padding: .5rem;
+  color: #fff;
+  width: 95%;
+  background: #600;
+}
+
+.icon-text {
+	color: #ffffff;
+	font-size: 0px;
+	text-shadow: 
+	  -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+}
+
+.footer {
+	font-size: 12px;
+}
+
+.title {
+	font-size: 20px;
+    font-weight: bold;
+}
+
+.content-area {
+  margin: 10px;
+}
+
+.theme-icon {
+  margin-left: 0px;
+  margin-right: 10px;
+  border: 3px solid black;
+  border-radius: 10px;
+  display: inline-block;
+  will-change: transform;
+}
+
+.selected {
+  border: 3px solid #f0f;
+}
+
+.picked {
+  border: 3px dotted #00f;
+}
+
+.player-name {
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+.options-details-pane {
+  display: flex;
+}
+
+#draft-options {
+}
+
+#draft-themes {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#draft-results {
+  margin-bottom: 10px;
+}
+
+.draft-stage {
+  font-size: 20px;
+}
+
+.draft-choice {
+  display: inline-block;
+}
+
+#draft-picked {
+  margin-right: 15px;
+}
+
+#atlas-cache {
+  position: absolute;
+}
+
+#config-theme-code {
+  width: 250px;
+}
+
+.theme-label {
+  margin-left: 15px;
+  margin-right: 15px;
+  position: relative;
+  top: 63%;
+  height: 100px;
+  line-height: 100px;
+}
+
+.theme-label-text {
+  display: inline-block;
+  font-size: 32px;
+  line-height: 33px;
+  color: black;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: black;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  font-family: fantasy;  
+}
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media print,
+       (-o-min-device-pixel-ratio: 5/4),
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 120dpi) {
+
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}  
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    *,
+    *:before,
+    *:after {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

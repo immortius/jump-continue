@@ -1,0 +1,45 @@
+plugins {
+  id "com.github.spotbugs" version "1.7.1" apply false
+}
+
+group 'au.net.immortius'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "au.net.immortius.jumpcontinue.SiteBuilder"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Gson fire, the slightly better gson, for json handling
+	compile 'io.gsonfire:gson-fire:1.8.3'
+
+    // Http handling
+    compile 'org.glassfish.jersey.core:jersey-client:2.27'
+	compile 'org.glassfish.jersey.inject:jersey-hk2:2.27'
+
+    // Guava for delicious fruity utility
+    compile 'com.google.guava:guava:26.0-jre'
+
+    // Logging
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+	
+	// For Java 9+
+	runtime 'javax.activation:activation:1.1.1'
+
+    // Unit Testing (assuming I do any)
+    testCompile 'junit:junit:4.12'
+}
+
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+  reports {
+    xml.enabled = false
+    html.enabled = true
+  }
+}
