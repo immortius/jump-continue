@@ -2,19 +2,14 @@
 
 var themes = []
 var themeLookup = {}
-var lastTheme = 0;
 var draft = {};
-
-var imageScale = 1;
+var atlasScale = 0.5;
 
 function loadData(content) {
   themes = content.themes;
   themes.forEach(theme => {
     themeLookup[theme.id] = theme;
     theme.available = true;
-    if (theme.id > lastTheme) {
-      lastTheme = theme.id;
-    }
   });
   setupSite();
 }
@@ -36,11 +31,23 @@ function setupSite() {
   }.bind(this));
 }
 
+function setupMenuItems() {
+	$('.nav li').click(function() {
+		$('.page').toggleClass('hidden', true);
+		$('.nav a').toggleClass('active', false);
+		var link = $(this).find('a');
+		link.toggleClass('active', true);
+		$(link.attr('href')).toggleClass('hidden', false);
+	});
+}
+
+/** Config Menu **/
+
 function setupConfiguration() {
   let configPage = $('#config-themes');
   let content = "";
   themes.forEach(theme => {
-    content += '<div id="config-theme-' + theme.id + '"><input id="config-theme-select-' + theme.id + '" class="config-theme-select" type="checkbox" checked> <a href="#popup">' + theme.name;
+    content += '<div id="config-theme-' + theme.id + '"><input id="config-theme-select-' + theme.id + '" class="config-theme-select" type="checkbox" checked> <a href="">' + theme.name;
     if (theme.variant > 0) {
       content += ' (' + theme.variant + ')';
     }
@@ -70,13 +77,7 @@ function setupConfiguration() {
       variationContainer.append(variationCards);
     });    
   });
-  
-  $('#popup-close').click(function(event) {
-    event.preventDefault();
-    $('#popup').removeClass('modal-active');
-    $('#popup').addClass('modal-inactive');
-  });
-  
+    
   $('#config-theme-select-all').click(function(event) {
     event.preventDefault();
     $(".config-theme-select").prop("checked", true);
@@ -143,34 +144,44 @@ function themeCodeChange() {
 	} 
 }
 
-function setupMenuItems() {
-	$('.nav li').click(function() {
-		$('.page').toggleClass('hidden', true);
-		$('.nav a').toggleClass('active', false);
-		var link = $(this).find('a');
-		link.toggleClass('active', true);
-		$(link.attr('href')).toggleClass('hidden', false);
-	});
-}
-
-function resetDraft() {
-  $('#draft-options').toggleClass('hidden', false);
-  $('#draft-area').toggleClass('hidden', true);
-  $('#draft-results-pane').toggleClass('hidden', true);
-}
+/** Setup Draft **/
 
 function beginDraft() { 
+  $('#error-message').toggleClass('hidden', true);
   $('#draft-options').toggleClass('hidden', true);
   $('#draft-area').toggleClass('hidden', false);
   
   let poolSize = $('#select-pool-size').val();
   let numPlayers = $('#num-players').val();
   let freshSecondPool = $('#fresh-pool-second-pick').is(':checked');
+    
+  if (numPlayers < 1) {
+    $('#error-message').text("At least one player required.");
+    $('#error-message').toggleClass('hidden', false);
+    $('#draft-options').toggleClass('hidden', false);
+    $('#draft-area').toggleClass('hidden', true);
+    return;
+  }
   
-  setupDraft(numPlayers);
+  if (poolSize < 2) {
+    $('#error-message').text("Pool size must be at least 2.");
+    $('#error-message').toggleClass('hidden', false);
+    $('#draft-options').toggleClass('hidden', false);
+    $('#draft-area').toggleClass('hidden', true);
+    return;
+  }
+    
+  buildDraftState(numPlayers);
   
-  console.log("Num Players: " + numPlayers + ", Selection Size: " + poolSize + ", Fresh second pool: " + freshSecondPool);
-  
+  let themesRequired = calcThemesRequired(poolSize, numPlayers, freshSecondPool);
+  if (draft.unpickedThemes.length < themesRequired) {
+    $('#error-message').text("Not enough themes available - " + themesRequired + " themes are required, but only " + draft.unpickedThemes.length + " available.");
+    $('#error-message').toggleClass('hidden', false);
+    $('#draft-options').toggleClass('hidden', false);
+    $('#draft-area').toggleClass('hidden', true);
+    return;
+  }
+    
   if (poolSize == 2 && !freshSecondPool) {
     generateRandomSelection();
     displayDraftResults();
@@ -178,6 +189,92 @@ function beginDraft() {
     assignPools(poolSize, freshSecondPool);
     displayNextDraftPick();
   }
+}
+
+function calcThemesRequired(poolSize, numPlayers, freshSecondPool) {
+  let themesRequired = numPlayers * poolSize;
+  if (freshSecondPool) {
+    themesRequired += numPlayers * poolSize;
+  }
+  return themesRequired;
+}
+
+
+function buildDraftState(numPlayers) {
+   draft = {
+     currentPlayer : 0,
+     currentPick : -1,
+     players : [],
+     unpickedThemes : []
+   };
+   for (let i = 0; i < numPlayers; i++) {
+     draft.players.push(
+     {
+       id : i + 1, 
+       selection : [],
+       poolOne : [],
+       poolTwo : []
+     })
+   }
+   draft.unpickedThemes = createThemePool();
+}
+
+function generateRandomSelection() {
+  draft.players.forEach(player => player.selection.push(dealTheme()));
+  draft.players.forEach(player => player.selection.push(dealTheme()));
+}
+
+function dealThemes(number) {
+  let result = [];
+  for (let i = 0; i < number; i++) {
+    result.push(dealTheme());
+  }
+  return result;  
+}  
+
+function dealTheme() {
+  let pickIndex = Math.floor(Math.random() * draft.unpickedThemes.length);
+  let pick = draft.unpickedThemes.splice(pickIndex, 1)[0];
+  return pick;
+}
+
+function createThemePool() {
+  let result = [];
+  themes.forEach(theme => {
+    if (theme.available) { 
+      result.push(theme);
+    }
+  });
+  return result;
+}
+
+function assignPools(poolSize, freshSecondPool) {
+  draft.players.forEach(
+    player => {
+      player.poolOne = dealThemes(poolSize);
+    }
+  );
+  if (freshSecondPool) {
+    draft.players.forEach(
+      player => {
+        player.poolTwo = dealThemes(poolSize);
+      }
+    );
+  } else {
+    draft.players.forEach(
+      player => {
+        player.poolTwo = player.poolOne;
+      }
+    );
+  }
+}
+
+/** Progress Draft **/
+
+function resetDraft() {
+  $('#draft-options').toggleClass('hidden', false);
+  $('#draft-area').toggleClass('hidden', true);
+  $('#draft-results-pane').toggleClass('hidden', true);
 }
 
 function draftPick() {
@@ -207,26 +304,7 @@ function draftPick() {
   }  
 }
 
-function assignPools(poolSize, freshSecondPool) {
-  draft.players.forEach(
-    player => {
-      player.poolOne = dealThemes(poolSize);
-    }
-  );
-  if (freshSecondPool) {
-    draft.players.forEach(
-      player => {
-        player.poolTwo = dealThemes(poolSize);
-      }
-    );
-  } else {
-    draft.players.forEach(
-      player => {
-        player.poolTwo = player.poolOne;
-      }
-    );
-  }
-}
+/** Draft Display **/
 
 function displayNextDraftPick() { 
   let player = draft.players[draft.currentPlayer]
@@ -241,7 +319,7 @@ function displayNextDraftPick() {
   } else {
     $('#draft-picked').removeClass("hidden");
     $('#draft-pick-1').append(generateThemeDisplay(player.selection[0], false));
-    $('#draft-pick-1 .theme-icon').addClass('picked');
+    $('#draft-pick-1 .card-icon').addClass('picked');
     displayDraftPool(player.poolTwo);
   }
 }
@@ -258,14 +336,13 @@ function displayDraftPool(pool) {
   selectionHtml += '</div>'
   draftSelectionDisplay.append(selectionHtml);
   for (let i = 0; i < pool.length; i++) {
-    $('#draft-choice-' + i + ' .theme-icon').click(function(event) {
+    $('#draft-choice-' + i + ' .card-icon').click(function(event) {
       draft.currentPick = i;
-      $('.draft-choice .theme-icon').removeClass('selected');
-      $('#draft-choice-' + i + ' .theme-icon').addClass('selected');
+      $('.draft-choice .card-icon').removeClass('selected');
+      $('#draft-choice-' + i + ' .card-icon').addClass('selected');
     });    
   }
 }
-
 
 function displayDraftResults() {
   $('#draft-area').toggleClass('hidden', true);
@@ -304,81 +381,37 @@ function displayDraftResults() {
   });    
 }
 
+/** Card and Theme Display **/
+
 function generateThemeDisplay(theme, includeVariant, id) {
+  console.log(theme);
   let label = theme.name;
   if (includeVariant && theme.variant > 0) {
     label += ' (' + theme.variant + ')';
   }
     
-  let result = '<div class="theme-icon" style="';
-	result += "background-image: url('./img/atlas.jpg'); background-position: -" + (imageScale * theme.displayImage.xOffset) + 'px -' + (imageScale * theme.displayImage.yOffset) + 'px;';
-  result += "width: " + (imageScale * theme.displayImage.width) + "px; height: " + (imageScale * theme.displayImage.height) + "px; background-size: 1700%;";
-	result += '" title="' + label + '"';
-  if (id) {
-    result += 'id="' + id + '"';
-  }
-  result += '>';
+  let result = generateImageDisplay(theme.displayImage, label, id);
   result += '<div class="theme-label"><div class="theme-label-text">' + label + '</div></div>';  
   result += '</div>';
   return result;
 }
 
 function generateCardDisplay(card) {
-  let result = '<div class="theme-icon" style="';
-	result += "background-image: url('./img/atlas.jpg'); background-position: -" + (imageScale * card.image.xOffset) + 'px -' + (imageScale * card.image.yOffset) + 'px;';
-  result += "width: " + (imageScale * card.image.width) + "px; height: " + (imageScale * card.image.height) + "px; background-size: 1700%;";
-	result += '" title="' + card.name + '">';
-  result += '</div>';
-  return result;
+  return generateImageDisplay(card.image, card.name) + '</div>'; 
 }
 
-function generateRandomSelection() {
-  draft.players.forEach(player => player.selection.push(dealTheme()));
-  draft.players.forEach(player => player.selection.push(dealTheme()));
-}
-
-function setupDraft(numPlayers) {
-   draft = {
-     currentPlayer : 0,
-     currentPick : -1,
-     players : [],
-     unpickedThemes : []
-   };
-   for (let i = 0; i < numPlayers; i++) {
-     draft.players.push(
-     {
-       id : i + 1, 
-       selection : [],
-       poolOne : [],
-       poolTwo : []
-     })
-   }
-   draft.unpickedThemes = createThemePool();
-}
-
-function dealThemes(number) {
-  let result = [];
-  for (let i = 0; i < number; i++) {
-    result.push(dealTheme());
+function generateImageDisplay(image, title, id) {
+  let result = '<div class="card-icon" style="';
+	result += 'background-position: -' + atlasScale * (image.xOffset) + 'px -' + atlasScale *(image.yOffset) + 'px;';
+  result += 'width: ' + atlasScale *(image.width) + 'px; height: ' + atlasScale *(image.height) + 'px;"';
+  if (id) {
+    result += 'id="' + id + '"';
   }
-  return result;  
-}  
-
-function dealTheme() {
-  let pickIndex = Math.floor(Math.random() * draft.unpickedThemes.length);
-  let pick = draft.unpickedThemes.splice(pickIndex, 1)[0];
-  return pick;
-}
-
-function createThemePool() {
-  let result = [];
-  themes.forEach(theme => {
-    if (theme.available) { 
-      result.push(theme);
-    }
-  });
+	result += ' title="' + title + '">';
   return result;
 }
+
+/** Utility **/
 
 function parseBigInt(value, radix) {
     return [...value.toString()]
@@ -397,6 +430,8 @@ function storageAvailable(type) {
 		return false;
 	}
 }
+
+/** Begin **/
 
 $(function() {
   $.get('./data/content.json', function(responseText) {

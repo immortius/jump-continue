@@ -17,8 +17,8 @@ import java.nio.file.Path;
 
 public class AtlasBuilder {
 
-    private static final int ICON_HEIGHT = 320;
-    private static final int ICON_WIDTH = 240;
+    private static final int ICON_HEIGHT =680;
+    private static final int ICON_WIDTH = 480;
     private static final int ATLAS_WIDTH = 17;
     private static final int ATLAS_HEIGHT = 13;
 
@@ -63,7 +63,7 @@ public class AtlasBuilder {
     public void build(Path atlasPath) throws IOException {
         JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
         jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        jpegParams.setCompressionQuality(0.7f);
+        jpegParams.setCompressionQuality(1f);
 
         final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
         try (FileImageOutputStream out = new FileImageOutputStream(atlasPath.toFile())) {
