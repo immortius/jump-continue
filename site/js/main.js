@@ -356,7 +356,24 @@ function displayDraftResults() {
     content += generateThemeDisplay(player.selection[0], true, player.id + '-0');
     content += generateThemeDisplay(player.selection[1], true, player.id + '-1');
     content += '</div>'
+    content += '<div class="export"><input type="button" id="export-player-' + player.id + '" value="Export for MTGA"> <span class="export-message hidden" id="export-message-' + player.id + '"> Exported!</span></div>'
     $("#draft-results").append(content);
+    
+    $('#export-player-' + player.id).click(function () {
+      event.preventDefault();
+      $(".export-message").toggleClass("hidden", true);
+      $("#export-message-" + player.id).toggleClass("hidden", false);
+      let decklist = player.selection[0].mtgaDecklist;
+      decklist += player.selection[1].mtgaDecklist;
+      
+      copyText(decklist, function() {
+        $("#export-message-" + player.id).text("Exported!");
+        $("#export-message-" + player.id).toggleClass("hidden", false);
+      },function() {
+        $("#export-message-" + player.id).text("Export failed.");
+        $("#export-message-" + player.id).toggleClass("hidden", false);
+      });
+    });
   });
   
   draft.players.forEach(player => {
@@ -384,7 +401,6 @@ function displayDraftResults() {
 /** Card and Theme Display **/
 
 function generateThemeDisplay(theme, includeVariant, id) {
-  console.log(theme);
   let label = theme.name;
   if (includeVariant && theme.variant > 0) {
     label += ' (' + theme.variant + ')';
@@ -416,6 +432,38 @@ function generateImageDisplay(image, title, id) {
 function parseBigInt(value, radix) {
     return [...value.toString()]
         .reduce((r, v) => r * BigInt(radix) + BigInt(parseInt(v, radix)), 0n);
+}
+
+function copyText(text, successFunc, failedFunc) {
+  if (!navigator.clipboard) {
+    if (copyTextFallback(text)) {
+      successFunc();
+    } else {
+      failedFunc();
+    }
+    return;
+  }
+  navigator.clipboard.writeText(text).then(successFunc, failedFunc);
+}
+
+function copyTextFallback(text) {
+  let copyArea = document.createElement("copyArea");
+  copyArea.value = text;
+  copyArea.style.top = "0";
+  copyArea.style.left = "0";
+  copyArea.style.position = "fixed";
+  document.body.appendChild(copyArea);
+  copyArea.focus();
+  copyArea.select();
+  
+  try {
+    return document.execCommand('copy');
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err);
+    return false;
+  }
+
+  document.body.removeChild(copyArea);
 }
 
 function storageAvailable(type) {

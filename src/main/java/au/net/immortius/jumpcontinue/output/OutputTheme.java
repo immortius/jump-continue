@@ -9,6 +9,7 @@ public class OutputTheme {
     private String name;
     private List<OutputCard> keycards = new ArrayList<>();
     private OutputImage displayImage;
+    private String mtgaDecklist;
 
     public int getId() {
         return id;
@@ -48,5 +49,13 @@ public class OutputTheme {
 
     public void setDisplayImage(OutputImage displayImage) {
         this.displayImage = displayImage;
+    }
+
+    public String getMtgaDecklist() {
+        return mtgaDecklist;
+    }
+
+    public void setMtgaDecklist(String mtgaDecklist) {
+        this.mtgaDecklist = mtgaDecklist;
     }
 }
