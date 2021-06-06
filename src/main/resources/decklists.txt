@@ -159,7 +159,7 @@ Archaeology (4)
 6 Island (JMP) 49
 
 Basri
-1 Basri Ket (M21) 286
+1 Basri Ket (M21) 7
 1 Concordia Pegasus (M21) 12
 1 Knight of the Tusk (JMP) 114
 1 Basri's Lieutenant (M21) 9
@@ -211,9 +211,9 @@ Chandra
 1 Pyroclastic Elemental (JMP) 356
 1 Young Pyromancer (JMP) 372
 1 Fanatical Firebrand (JMP) 315
-1 Chandra's Incinerator (M21) 302
+1 Chandra's Incinerator (M21) 136
 1 Chandra's Pyreling (M21) 138
-2 Chandra's Magmutt (M21) 303
+2 Chandra's Magmutt (M21) 137
 1 Flames of the Firebrand (JMP) 317
 1 Pillar of Flame (JMP) 355
 1 Hungry Flames (JMP) 336
@@ -257,7 +257,7 @@ Devilish (3)
 1 Spiteful Prankster (JMP) 26
 1 Lightning-Core Excavator (JMP) 32
 1 Torch Fiend (JMP) 367
-1 Brash Taunter (M21) 363
+1 Brash Taunter (M21) 133
 1 Havoc Jester (M21) 149
 1 Hobblefiend (M21) 152
 1 Pitchburn Devils (M21) 156
@@ -294,7 +294,7 @@ Dinosaurs (1)
 1 Drowsing Tyrannodon (M21) 178
 1 Savage Stomp (JMP) 427
 1 Commune with Dinosaurs (JMP) 384
-1 Cultivate (M21) 317
+1 Cultivate (M21) 177
 1 Crushing Canopy (JMP) 386
 1 Setessan Training (M21) 205
 1 Thriving Grove (JMP) 34
@@ -312,7 +312,7 @@ Dinosaurs (2)
 1 Commune with Dinosaurs (JMP) 384
 1 Crushing Canopy (JMP) 386
 1 New Horizons (JMP) 414
-1 Garruk's Uprising (M21) 308
+1 Garruk's Uprising (M21) 186
 1 Thriving Grove (JMP) 34
 7 Forest (JMP) 73
 
@@ -326,7 +326,7 @@ Dinosaurs (3)
 1 Drowsing Tyrannodon (M21) 178
 1 Savage Stomp (JMP) 427
 1 Commune with Dinosaurs (JMP) 384
-1 Cultivate (M21) 317
+1 Cultivate (M21) 177
 1 Crushing Canopy (JMP) 386
 1 Titanic Growth (M21) 210
 1 Thriving Grove (JMP) 34
@@ -344,7 +344,7 @@ Dinosaurs (4)
 1 Commune with Dinosaurs (JMP) 384
 1 Primal Might (M21) 197
 1 New Horizons (JMP) 414
-1 Garruk's Uprising (M21) 308
+1 Garruk's Uprising (M21) 186
 1 Thriving Grove (JMP) 34
 7 Forest (JMP) 73
 
@@ -451,8 +451,8 @@ Dogs (1)
 1 Selfless Savior (M21) 36
 1 Alpine Watchdog (M21) 2
 1 Rambunctious Mutt (M21) 30
-1 Release the Dogs (JMP) 004
-1 Secure the Scene (M21) 035
+1 Release the Dogs (JMP) 4
+1 Secure the Scene (M21) 35
 1 Feat of Resistance (M21) 19
 1 Pacifism (JMP) 125
 1 Thriving Heath (JMP) 35
@@ -559,7 +559,7 @@ Enchanted (2)
 1 Bulwark Giant (JMP) 93
 1 Trusty Retriever (JMP) 8
 1 Staunch Shieldmate (M21) 39
-1 Celestial Mantle (JMP) 096
+1 Celestial Mantle (JMP) 96
 1 Face of Divinity (JMP) 103
 1 Knightly Valor (JMP) 115
 1 Forced Worship (JMP) 104
@@ -589,7 +589,7 @@ Feathered Friends (2)
 1 Steel-Plume Marshal (JMP) 5
 1 Healer's Hawk (JMP) 107
 1 Aven Gagglemaster (M21) 5
-1 Falconer Adept (M21) 018
+1 Falconer Adept (M21) 18
 1 Warded Battlements (M21) 44
 1 Gale Swooper (M21) 20
 1 Celestial Enforcer (M21) 11
@@ -638,13 +638,13 @@ Garruk
 1 Brushstrider (JMP) 381
 1 Rumbling Baloth (JMP) 426
 1 Orazca Frillback (JMP) 416
-1 Garruk's Harbinger (M21) 307
+1 Garruk's Harbinger (M21) 185
 1 Garruk's Gorehorn (M21) 184
 1 Drowsing Tyrannodon (M21) 178
 1 Hunter's Edge (M21) 189
 1 Hunter's Insight (JMP) 402
 1 Ranger's Guile (M21) 199
-1 Garruk's Uprising (M21) 308
+1 Garruk's Uprising (M21) 186
 1 Thriving Grove (JMP) 34
 7 Forest (M21) 313
 
@@ -666,7 +666,7 @@ Goblins (1)
 
 Goblins (2)
 1 Goblin Instigator (JMP) 327
-1 Muxus, Goblin Grandee (JMP) 024
+1 Muxus, Goblin Grandee (JMP) 24
 1 Beetleback Chief (JMP) 294
 1 Goblin Commando (JMP) 325
 1 Boggart Brute (JMP) 299
@@ -715,7 +715,7 @@ Goblins (4)
 Heavily-Armored (1)
 1 Patron of the Valiant (JMP) 128
 1 Bulwark Giant (JMP) 93
-1 Trusty Retriever (JMP) 008
+1 Trusty Retriever (JMP) 8
 1 Lightwalker (JMP) 118
 1 Tempered Veteran (M21) 41
 1 Siege Striker (M21) 37
@@ -751,7 +751,7 @@ Heavily-Armored (3)
 1 Bulwark Giant (JMP) 93
 1 Trusty Retriever (JMP) 8
 1 Lightwalker (JMP) 118
-1 Tempered Veteran (M21) 041
+1 Tempered Veteran (M21) 41
 1 Makeshift Battalion (M21) 26
 1 Basri's Acolyte (M21) 8
 1 Basri's Solidarity (M21) 10
@@ -1404,7 +1404,7 @@ Smashing (4)
 Spellcasting (1)
 1 Thermo-Alchemist (JMP) 365
 1 Living Lightning (JMP) 23
-1 Lightning Visionary (JMP) 022
+1 Lightning Visionary (JMP) 22
 1 Chandra's Pyreling (M21) 138
 1 Kinetic Augur (M21) 154
 1 Heartfire Immolator (M21) 150
@@ -1646,7 +1646,7 @@ Under the Sea (1)
 1 Octoprophet (JMP) 161
 1 Wishful Merfolk (JMP) 197
 1 Aegis Turtle (JMP) 138
-1 Pursued Whale (M21) 351
+1 Pursued Whale (M21) 60
 1 Tolarian Kraken (M21) 80
 1 Waker of Waves (M21) 84
 1 Voyage's End (JMP) 189
@@ -1662,7 +1662,7 @@ Under the Sea (2)
 1 Octoprophet (JMP) 161
 1 Wishful Merfolk (JMP) 197
 1 Aegis Turtle (JMP) 138
-1 Pursued Whale (M21) 351
+1 Pursued Whale (M21) 60
 1 Waker of Waves (M21) 84
 1 Whelming Wave (JMP) 193
 1 Sweep Away (JMP) 180
